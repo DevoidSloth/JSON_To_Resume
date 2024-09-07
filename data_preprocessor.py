@@ -19,7 +19,12 @@ class DataPreprocessor:
             data['summary'] = DataPreprocessor.condense_summary(data['summary'])
 
         # Process skills
-        data['skills'] = [skill['name'] for skill in data['skills']]
+        if data['skills'] and isinstance(data['skills'][0], dict):
+            # Skills are already in the correct format
+            pass
+        else:
+            # Convert skills to the correct format
+            data['skills'] = [{'name': skill, 'level': ''} for skill in data['skills']]
 
         # Process work experience
         for job in data['work_experience']:

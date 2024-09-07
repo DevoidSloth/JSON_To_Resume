@@ -16,3 +16,6 @@ class TemplateSelector:
 
     def list_templates(self):
         return list(self.templates.keys())
+
+    def get_available_templates(self):
+        return self.list_templates()
