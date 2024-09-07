@@ -8,10 +8,7 @@ class TemplateSelector:
             'origami': 'origami_unfold_resume',
             'code-leaf': 'code_leaf_resume',
             'polka': 'polka_dotted_resume',
-            
-            
-            
-            # Add more templates as needed
+            'ats_friendly': 'ats_friendly_resume',
         }
 
     def get_template(self, template_name):
@@ -19,8 +16,3 @@ class TemplateSelector:
 
     def list_templates(self):
         return list(self.templates.keys())
-
-# Example usage:
-# selector = TemplateSelector()
-# template_name = selector.get_template('modern')
-# available_templates = selector.list_templates()
