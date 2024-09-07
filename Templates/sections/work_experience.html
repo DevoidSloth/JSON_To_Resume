@@ -1,0 +1,16 @@
+{% if work_experience %}
+<section class="work-experience">
+    <h2>Work Experience</h2>
+    {% for job in work_experience %}
+    <div class="work-item">
+        <h3>{{ job.title }} | {{ job.company }}</h3>
+        <p>{{ job.date }}</p>
+        <ul>
+            {% for responsibility in job.responsibilities %}
+            <li>{{ responsibility }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endfor %}
+</section>
+{% endif %}

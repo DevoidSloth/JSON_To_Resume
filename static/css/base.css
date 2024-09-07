@@ -1,0 +1,62 @@
+@page {
+    size: A4;
+    margin: 0;
+}
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    width: 210mm;
+    height: 297mm;
+    font-size: 10pt;
+}
+.resume-container {
+    width: 100%;
+    height: 75%;
+    display: flex;
+    flex-direction: column;
+}
+.header {
+    background-color: #36383e;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+}
+.profile-picture {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+.name-title {
+    flex-grow: 1;
+}
+.name-title h1 {
+    margin: 0;
+    font-size: 20pt;
+}
+.name-title p {
+    margin: 5px 0 0 0;
+    font-size: 12pt;
+}
+.content {
+    display: flex;
+    flex: 1;
+}
+h2 {
+    margin-top: 0;
+    font-size: 14pt;
+    border-bottom: 1px solid #36383e;
+    padding-bottom: 5px;
+    margin-bottom: 12px;
+}
+ul {
+    margin: 5px 0;
+    padding-left: 20px;
+}
+li {
+    margin-bottom: 3px;
+}

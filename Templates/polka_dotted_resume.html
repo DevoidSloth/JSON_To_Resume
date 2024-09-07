@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ name }} - Resume</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            height: 297mm;
+            width: 210mm;
+            overflow: hidden;
+        }
+        #content {
+            transform-origin: top left;
+        }
+        .container {
+            display: flex;
+            height: 100%;
+        }
+        .left-column {
+            width: 30%;
+            padding-right: 20px;
+            border-right: 2px solid #3498db;
+        }
+        .right-column {
+            width: 70%;
+            padding-left: 20px;
+        }
+        h1, h2 {
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+        h1 {
+            font-size: 24px;
+        }
+        h2 {
+            font-size: 18px;
+            border-bottom: 1px solid #3498db;
+            padding-bottom: 5px;
+        }
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+        ul {
+            padding-left: 20px;
+            margin: 5px 0;
+        }
+        .skill-bar {
+            background-color: #e0e0e0;
+            height: 10px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .skill-level {
+            height: 100%;
+            background-color: #3498db;
+        }
+        .date {
+            font-style: italic;
+            color: #666;
+        }
+        .responsibilities {
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <div class="container">
+            <div class="left-column">
+                {% if profile_picture %}
+                <img src="{{ profile_picture }}" alt="{{ name }}" class="profile-img">
+                {% endif %}
+                <h1>{{ name }}</h1>
+                <p><strong>{{ title }}</strong></p>
+                
+                {% if contact_details %}
+                <h2>Contact</h2>
+                <ul>
+                    {% for key, value in contact_details.items() %}
+                    <li>{{ key.capitalize() }}: {{ value }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                
+                {% if skills %}
+                <h2>Skills</h2>
+                {% for skill in skills %}
+                <p>{{ skill.name }}</p>
+                <div class="skill-bar">
+                    <div class="skill-level" style="width: 
+                        {% if skill.level == 'Beginner' %}20%
+                        {% elif skill.level == 'Intermediate' %}40%
+                        {% elif skill.level == 'Proficient' %}60%
+                        {% elif skill.level == 'Expert' %}80%
+                        {% elif skill.level == 'Master' %}100%
+                        {% endif %};">
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+                
+                {% if certifications %}
+                <h2>Certifications</h2>
+                <ul>
+                    {% for cert in certifications %}
+                    <li>{{ cert }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                
+                {% if extracurriculars %}
+                <h2>Extracurriculars</h2>
+                <ul>
+                    {% for extra in extracurriculars %}
+                    <li>{{ extra.activity }} - {{ extra.role }} ({{ extra.years }})</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                
+                {% if awards %}
+                <h2>Awards</h2>
+                <ul>
+                    {% for award in awards %}
+                    <li>{{ award.name }} ({{ award.year }})</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            
+            <div class="right-column">
+                {% if summary %}
+                <h2>Summary</h2>
+                <p>{{ summary }}</p>
+                {% endif %}
+                
+                {% if work_experience %}
+                <h2>Work Experience</h2>
+                {% for job in work_experience %}
+                <h3>{{ job.title }} - {{ job.company }}</h3>
+                <p class="date">{{ job.date }}</p>
+                <ul class="responsibilities">
+                    {% for resp in job.responsibilities %}
+                    <li>{{ resp }}</li>
+                    {% endfor %}
+                </ul>
+                {% endfor %}
+                {% endif %}
+                
+                {% if education %}
+                <h2>Education</h2>
+                {% for edu in education %}
+                <h3>{{ edu.program }} - {{ edu.school }}</h3>
+                <p class="date">{{ edu.graduation_year }}</p>
+                <p>{{ edu.location }}</p>
+                {% if edu.gpa %}<p>GPA: {{ edu.gpa }}</p>{% endif %}
+                {% if edu.class_rank %}<p>Class Rank: {{ edu.class_rank }}</p>{% endif %}
+                {% if edu.sat_score %}<p>SAT Score: {{ edu.sat_score }}</p>{% endif %}
+                {% if edu.act_score %}<p>ACT Score: {{ edu.act_score }}</p>{% endif %}
+                {% if edu.relevant_coursework %}
+                <p>Relevant Coursework:</p>
+                <ul>
+                    {% for course in edu.relevant_coursework %}
+                    <li>{{ course }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+                
+                {% if volunteer_experience %}
+                <h2>Volunteer Experience</h2>
+                {% for vol in volunteer_experience %}
+                <h3>{{ vol.role }} - {{ vol.organization }}</h3>
+                <p class="date">{{ vol.date }} ({{ vol.hours }} hours)</p>
+                <ul class="responsibilities">
+                    {% for resp in vol.responsibilities %}
+                    <li>{{ resp }}</li>
+                    {% endfor %}
+                </ul>
+                {% endfor %}
+                {% endif %}
+                
+                {% if references %}
+                <h2>References</h2>
+                <p>{{ references }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <script>
+        function resizeToFit() {
+            const content = document.getElementById('content');
+            const body = document.body;
+            let fontSize = 12; // Starting font size
+            let scale = 1;
+            
+            content.style.fontSize = fontSize + 'px';
+            
+            while (content.scrollHeight > body.offsetHeight && fontSize > 7) {
+                fontSize -= 0.5;
+                content.style.fontSize = fontSize + 'px';
+            }
+            
+            if (content.scrollHeight > body.offsetHeight) {
+                scale = body.offsetHeight / content.scrollHeight;
+                content.style.transform = `scale(${scale})`;
+            }
+        }
+
+        window.onload = resizeToFit;
+        window.onresize = resizeToFit;
+    </script>
+</body>
+</html>

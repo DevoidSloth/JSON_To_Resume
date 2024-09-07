@@ -1,0 +1,10 @@
+{% if awards %}
+<section class="awards">
+    <h2>Awards</h2>
+    {% for award in awards %}
+    <div class="award-item">
+        <strong>{{ award.name }}</strong> ({{ award.year }})
+    </div>
+    {% endfor %}
+</section>
+{% endif %}

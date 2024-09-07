@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ name }}'s Resume{% endblock %}</title>
+    <link rel="stylesheet" href="../static/css/base.css">
+    <link rel="stylesheet" href="../static/css/print.css" media="print">
+    {% block additional_styles %}{% endblock %}
+</head>
+<body>
+    <div class="resume-container">
+        {% block header %}
+        <header class="header">
+            {% if profile_picture %}
+            <img src="{{ profile_picture }}" alt="Profile Picture" class="profile-picture">
+            {% endif %}
+            <div class="name-title">
+                <h1>{{ name }}</h1>
+                <p>{{ title }}</p>
+            </div>
+        </header>
+        {% endblock %}
+
+        <div class="content">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,6 @@
+sample_data/sample_resume.json
+.venv/
+__pycache__/
+resume.html
+profile_picture.jpg
+FileStructure.txt

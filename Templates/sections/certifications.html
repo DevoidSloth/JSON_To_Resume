@@ -1,0 +1,8 @@
+{% if certifications %}
+<section class="certifications">
+    <h2>Certifications</h2>
+    {% for cert in certifications %}
+    <div class="certification-item">{{ cert }}</div>
+    {% endfor %}
+</section>
+{% endif %}

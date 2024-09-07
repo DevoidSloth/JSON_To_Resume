@@ -1,0 +1,18 @@
+{% if education %}
+<section class="education">
+    <h2>Education</h2>
+    {% for edu in education %}
+    <div class="education-item">
+        <h3>{{ edu.school }}</h3>
+        <p>{{ edu.program }}, {{ edu.location }}</p>
+        <p>Graduation Year: {{ edu.graduation_year }} | GPA: {{ edu.gpa }}
+        {% if edu.class_rank %} | Class Rank: {{ edu.class_rank }}{% endif %}</p>
+        <p>SAT: {{ edu.sat_score }} | ACT: {{ edu.act_score }}</p>
+        {% if edu.relevant_coursework %}
+        <p><strong>RELEVANT COURSEWORK</strong></p>
+        <p>{{ edu.relevant_coursework | join(' / ') }}</p>
+        {% endif %}
+    </div>
+    {% endfor %}
+</section>
+{% endif %}

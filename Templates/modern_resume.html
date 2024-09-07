@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block additional_styles %}
+<style>
+    @page {
+        size: A4;
+        margin: 0;
+    }
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.4;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        width: 210mm;
+        height: 297mm;
+        font-size: 10pt;
+    }
+    .resume-container {
+        width: 100%;
+        height: 75%;  /* Takes up 3/4 of the page */
+        display: flex;
+        flex-direction: column;
+    }
+    .header {
+        background-color: #36383e;
+        color: white;
+        padding: 15px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: {% if profile_picture %}flex-start{% else %}center{% endif %};
+    }
+    .profile-picture {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        margin-right: 20px;
+    }
+    .name-title {
+        flex-grow: 1;
+        text-align: {% if profile_picture %}left{% else %}center{% endif %};
+    }
+    .name-title h1 {
+        margin: 0;
+        font-size: 20pt;
+    }
+    .name-title p {
+        margin: 5px 0 0 0;
+        font-size: 12pt;
+    }
+    .content {
+        display: flex;
+        flex: 1;
+    }
+    .left-column {
+        flex: 1;
+        background-color: #eee8e3;
+        padding: 20px;
+    }
+    .right-column {
+        flex: 2;
+        padding: 20px;
+        background-color: #ffffff;
+    }
+    h2 {
+        margin-top: 0;
+        font-size: 14pt;
+        border-bottom: 1px solid #36383e;
+        padding-bottom: 5px;
+        margin-bottom: 12px;
+    }
+    .contact-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+    .contact-icon {
+        width: 16px;
+        height: 16px;
+        margin-right: 10px;
+    }
+    .skill-item, .certification-item, .extracurricular-item, .award-item {
+        margin-bottom: 6px;
+    }
+    .work-item, .education-item, .volunteer-item {
+        margin-bottom: 15px;
+    }
+    .work-item h3, .education-item h3, .volunteer-item h3 {
+        font-size: 11pt;
+        margin: 0 0 5px 0;
+    }
+    .work-item p, .education-item p, .volunteer-item p {
+        margin: 3px 0;
+    }
+    ul {
+        margin: 5px 0;
+        padding-left: 20px;
+    }
+    li {
+        margin-bottom: 3px;
+    }
+    #summary, #references {
+        margin-bottom: 15px;
+    }
+    .education-item p strong {
+        display: block;
+        margin-top: 8px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="left-column">
+    {% include 'sections/contact_details.html' %}
+    {% include 'sections/skills.html' %}
+    {% include 'sections/certifications.html' %}
+    {% include 'sections/extracurriculars.html' %}
+    {% include 'sections/awards.html' %}
+</div>
+<div class="right-column">
+    {% include 'sections/summary.html' %}
+    {% include 'sections/education.html' %}
+    {% include 'sections/work_experience.html' %}
+    {% include 'sections/volunteer_experience.html' %}
+    {% include 'sections/references.html' %}
+</div>
+{% endblock %}

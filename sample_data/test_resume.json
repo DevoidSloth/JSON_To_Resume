@@ -1,0 +1,104 @@
+{
+    "name": "Gabriel Thornton",
+    "title": "Visual Artist & Sculptor",
+    "profile_picture": "",
+    "contact_details": {
+        "email": "gabriel.thornton@artmail.com",
+        "phone": "(415) 555-8732",
+        "address": "742 Palette Street, San Francisco, CA 94110"
+    },
+    "summary": "Innovative visual artist with 12 years of experience in sculpture and mixed media installations. Known for thought-provoking pieces that challenge societal norms and explore themes of identity and environmental consciousness. Seeking opportunities to showcase work in prestigious galleries and collaborate on large-scale public art projects.",
+    "education": [
+        {
+            "school": "California Institute of the Arts",
+            "location": "Valencia, CA",
+            "program": "Master of Fine Arts in Sculpture",
+            "graduation_year": "2014",
+            "gpa": "3.92/4.00",
+            "relevant_coursework": [
+                "Advanced Sculpture Techniques",
+                "Contemporary Art Theory",
+                "Public Art and Urban Design"
+            ]
+        },
+        {
+            "school": "Rhode Island School of Design",
+            "location": "Providence, RI",
+            "program": "Bachelor of Fine Arts in Painting",
+            "graduation_year": "2011",
+            "gpa": "3.85/4.00",
+            "relevant_coursework": [
+                "Color Theory",
+                "Figure Drawing",
+                "Art History"
+            ]
+        }
+    ],
+    "skills": [
+        {"name": "Sculpture", "level": "Master"},
+        {"name": "Mixed Media", "level": "Expert"},
+        {"name": "Digital Art", "level": "Proficient"},
+        {"name": "Art Installation", "level": "Expert"},
+        {"name": "Grant Writing", "level": "Proficient"}
+    ],
+    "certifications": [
+        "Certified Public Art Professional (CPAP)",
+        "Digital Fabrication for Artists Certificate"
+    ],
+    "work_experience": [
+        {
+            "title": "Independent Artist",
+            "company": "Self-Employed",
+            "date": "2014 - Present",
+            "responsibilities": [
+                "Create and exhibit original artworks in galleries across North America and Europe",
+                "Manage all aspects of art business, including marketing, sales, and client relations",
+                "Secure and complete public art commissions for cities and private corporations",
+                "Collaborate with other artists on large-scale installation projects"
+            ]
+        },
+        {
+            "title": "Artist-in-Residence",
+            "company": "San Francisco Museum of Modern Art",
+            "date": "2018 - 2019",
+            "responsibilities": [
+                "Developed a site-specific installation exploring the intersection of technology and nature",
+                "Conducted workshops for museum visitors on experimental art techniques",
+                "Participated in panel discussions and lectures on contemporary art practices"
+            ]
+        }
+    ],
+    "volunteer_experience": [
+        {
+            "organization": "Arts for Youth",
+            "role": "Mentor",
+            "date": "2016 - Present",
+            "hours": 500,
+            "responsibilities": [
+                "Guide underprivileged youth in developing artistic skills and creative expression",
+                "Organize annual art shows to showcase student works and raise funds for art supplies"
+            ]
+        },
+        {
+            "organization": "City Beautification Project",
+            "role": "Lead Artist",
+            "date": "2020 - Present",
+            "hours": 300,
+            "responsibilities": [
+                "Design and execute murals in urban areas to revitalize neglected spaces",
+                "Coordinate with local businesses and residents to ensure community involvement"
+            ]
+        }
+    ],
+    "extracurriculars": [
+        {"activity": "San Francisco Artists Collective", "role": "Board Member", "years": "2017 - Present"},
+        {"activity": "Environmental Art Initiative", "role": "Founder", "years": "2019 - Present"}
+    ],
+    "awards": [
+        {"name": "National Endowment for the Arts Grant", "year": "2022"},
+        {"name": "Emerging Artist of the Year", "year": "2018"},
+        {"name": "Public Art Network Year in Review", "year": "2020"},
+        {"name": "MacDowell Fellowship", "year": "2017"}
+    ],
+    "references": "References available upon request"
+}

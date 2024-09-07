@@ -1,0 +1,9 @@
+{% if contact_details %}
+<h2>Contact Details</h2>
+{% for key, value in contact_details.items() %}
+<div class="contact-item">
+    <img src="data:image/svg+xml;base64,{{ icons[key] }}" alt="{{ key }} icon" class="contact-icon">
+    <span>{{ value }}</span>
+</div>
+{% endfor %}
+{% endif %}

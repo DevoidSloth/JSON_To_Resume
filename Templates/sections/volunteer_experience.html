@@ -1,0 +1,16 @@
+{% if volunteer_experience %}
+<section class="volunteer-experience">
+    <h2>Volunteer Experience</h2>
+    {% for exp in volunteer_experience %}
+    <div class="volunteer-item">
+        <h3>{{ exp.organization }} - {{ exp.role }}</h3>
+        <p>{{ exp.date }} | {{ exp.hours }} hours</p>
+        <ul>
+            {% for responsibility in exp.responsibilities %}
+            <li>{{ responsibility }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endfor %}
+</section>
+{% endif %}

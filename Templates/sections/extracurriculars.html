@@ -1,0 +1,11 @@
+{% if extracurriculars %}
+<section class="extracurriculars">
+    <h2>Extracurriculars</h2>
+    {% for item in extracurriculars %}
+    <div class="extracurricular-item">
+        <strong>{{ item.activity }}</strong>
+        <p>{{ item.role | default('') }} | {{ item.years }}</p>
+    </div>
+    {% endfor %}
+</section>
+{% endif %}

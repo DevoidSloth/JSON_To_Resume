@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ name }} - Resume</title>
+    <style>
+        @media print {
+            @page {
+                size: A4;
+                margin: 0;
+            }
+            body {
+                -webkit-print-color-adjust: exact;
+            }
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 11px;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f0f0f0;
+        }
+        .page {
+            width: 210mm;
+            height: 297mm;
+            padding: 10mm;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: flex;
+            position: relative;
+            overflow: hidden;
+        }
+        .left-column {
+            width: 28%;
+            padding-right: 5mm;
+        }
+        .right-column {
+            width: 72%;
+            padding-left: 7mm;
+            border-left: 1px solid #e0e0e0;
+        }
+        .hexagon {
+            width: 100px;
+            height: 115px;
+            background-color: #3498db;
+            position: relative;
+            margin: 0 auto 20px;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+        .profile-picture {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        h1, h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        h1 {
+            font-size: 24px;
+            text-align: center;
+        }
+        h2 {
+            font-size: 18px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+            margin-top: 20px;
+        }
+        .title {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        .contact-details {
+            font-size: 11px;
+            margin-bottom: 20px;
+        }
+        .contact-details div {
+            margin-bottom: 5px;
+        }
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+        .skill {
+            background-color: #ecf0f1;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+        }
+        .skill-level {
+            display: inline-block;
+            width: 40px;
+            height: 4px;
+            background-color: #bdc3c7;
+            margin-left: 5px;
+            position: relative;
+        }
+        .skill-level::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background-color: #3498db;
+        }
+        .skill-level[data-level="Beginner"]::after { width: 20%; }
+        .skill-level[data-level="Intermediate"]::after { width: 40%; }
+        .skill-level[data-level="Proficient"]::after { width: 60%; }
+        .skill-level[data-level="Expert"]::after { width: 80%; }
+        .skill-level[data-level="Master"]::after { width: 100%; }
+        .section {
+            margin-bottom: 25px;
+        }
+        .subsection {
+            margin-bottom: 20px;
+        }
+        .subsection-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        .subsection-subtitle {
+            font-style: italic;
+            color: #7f8c8d;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+        ul {
+            padding-left: 20px;
+            margin-top: 5px;
+        }
+        li {
+            margin-bottom: 3px;
+        }
+        .awards-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+        .award {
+            background-color: #e74c3c;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+        }
+        .certifications-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+        .certification {
+            background-color: #2ecc71;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+        }
+        .extracurriculars-container {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+        .extracurricular {
+            background-color: #9b59b6;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+        }
+        .references {
+            font-style: italic;
+            color: #7f8c8d;
+            font-size: 11px;
+            text-align: center;
+            margin-top: 15px;
+        }
+        .background-hex {
+            position: absolute;
+            width: 400px;
+            height: 460px;
+            background-color: rgba(52, 152, 219, 0.1);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            z-index: -1;
+            bottom: -230px;
+            right: -200px;
+            transform: rotate(30deg);
+        }
+        .summary {
+            font-size: 12px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="background-hex"></div>
+        <div class="left-column">
+            <div class="hexagon">
+                {% if profile_picture %}
+                <img src="{{ profile_picture }}" alt="{{ name }}" class="profile-picture">
+                {% endif %}
+            </div>
+            <h1>{{ name }}</h1>
+            <div class="title">{{ title }}</div>
+            {% if contact_details %}
+            <div class="contact-details">
+                {% for key, value in contact_details.items() %}
+                <div>{{ value }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% if skills %}
+            <h2>Skills</h2>
+            <div class="skills-container">
+                {% for skill in skills %}
+                <div class="skill">
+                    {{ skill.name }}
+                    <span class="skill-level" data-level="{{ skill.level }}"></span>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% if certifications %}
+            <h2>Certifications</h2>
+            <div class="certifications-container">
+                {% for cert in certifications %}
+                <div class="certification">{{ cert }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% if extracurriculars %}
+            <h2>Extracurriculars</h2>
+            <div class="extracurriculars-container">
+                {% for extra in extracurriculars %}
+                <div class="extracurricular">
+                    {{ extra.activity }} - {{ extra.role }} ({{ extra.years }})
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% if awards %}
+            <h2>Awards</h2>
+            <div class="awards-container">
+                {% for award in awards %}
+                <div class="award">{{ award.name }} ({{ award.year }})</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        <div class="right-column">
+            {% if summary %}
+            <h2>Professional Summary</h2>
+            <p class="summary">{{ summary }}</p>
+            {% endif %}
+            {% if work_experience %}
+            <h2>Work Experience</h2>
+            {% for job in work_experience %}
+            <div class="subsection">
+                <div class="subsection-title">{{ job.title }} - {{ job.company }}</div>
+                <div class="subsection-subtitle">{{ job.date }}</div>
+                <ul>
+                    {% for resp in job.responsibilities %}
+                    <li>{{ resp }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% if education %}
+            <h2>Education</h2>
+            {% for edu in education %}
+            <div class="subsection">
+                <div class="subsection-title">{{ edu.program }} - {{ edu.school }}</div>
+                <div class="subsection-subtitle">{{ edu.location }} | Graduated: {{ edu.graduation_year }}</div>
+                {% if edu.gpa or edu.class_rank %}
+                <div>GPA: {{ edu.gpa }}{% if edu.class_rank %} | Class Rank: {{ edu.class_rank }}{% endif %}</div>
+                {% endif %}
+                {% if edu.sat_score or edu.act_score %}
+                <div>{% if edu.sat_score %}SAT: {{ edu.sat_score }}{% endif %}{% if edu.act_score %} | ACT: {{ edu.act_score }}{% endif %}</div>
+                {% endif %}
+                {% if edu.relevant_coursework %}
+                <div>Relevant Coursework: {{ edu.relevant_coursework|join(', ') }}</div>
+                {% endif %}
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% if volunteer_experience %}
+            <h2>Volunteer Experience</h2>
+            {% for vol in volunteer_experience %}
+            <div class="subsection">
+                <div class="subsection-title">{{ vol.role }} - {{ vol.organization }}</div>
+                <div class="subsection-subtitle">{{ vol.date }} | {{ vol.hours }} hours</div>
+                <ul>
+                    {% for resp in vol.responsibilities %}
+                    <li>{{ resp }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% if references %}
+            <div class="references">{{ references }}</div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ name }} - Resume</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+        body {
+            font-family: 'Courier New', monospace;
+            font-size: 10px;
+            line-height: 1.4;
+            color: #1a1a1a;
+            background-color: #f0fff0;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            height: 297mm;
+            width: 210mm;
+        }
+        .container {
+            display: flex;
+            height: 100%;
+        }
+        .left-column {
+            width: 30%;
+            background-color: #2e8b57;
+            color: #e0f2e0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .right-column {
+            width: 70%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .profile-picture {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto;
+            border: 3px solid #4caf50;
+        }
+        h1 {
+            font-size: 24px;
+            margin: 10px 0 5px;
+            color: #ffffff;
+        }
+        h2 {
+            font-size: 16px;
+            margin: 0 0 10px;
+            color: #a5d6a7;
+        }
+        h3 {
+            font-size: 14px;
+            margin: 15px 0 10px;
+            color: #ffffff;
+            border-bottom: 2px solid #a5d6a7;
+            padding-bottom: 5px;
+        }
+        .right-column h3 {
+            color: #2e8b57;
+            border-bottom-color: #2e8b57;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0 0 15px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .skill-bar {
+            background-color: #a5d6a7;
+            height: 8px;
+            margin-top: 3px;
+            position: relative;
+        }
+        .skill-level {
+            background-color: #ffffff;
+            height: 100%;
+            position: absolute;
+        }
+        .leaf-bullet {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin-right: 5px;
+            background-color: #a5d6a7;
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        }
+        .right-column .leaf-bullet {
+            background-color: #4caf50;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .contact-icon {
+            width: 12px;
+            height: 12px;
+            display: inline-block;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+        .contact-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: #ffffff;
+        }
+        .print-only {
+            display: none;
+        }
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .print-only {
+                display: block;
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-column">
+            {% if profile_picture %}
+            <img src="{{ profile_picture }}" alt="{{ name }}" class="profile-picture">
+            {% endif %}
+            <div class="header">
+                <h1>{{ name }}</h1>
+                <h2>{{ title }}</h2>
+            </div>
+            {% if contact_details %}
+            <div class="section">
+                <h3>Contact</h3>
+                <ul>
+                    {% if contact_details.email %}
+                    <li>
+                        <span class="contact-icon">
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        </span>
+                        {{ contact_details.email }}
+                    </li>
+                    {% endif %}
+                    {% if contact_details.phone %}
+                    <li>
+                        <span class="contact-icon">
+                            <svg viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
+                        </span>
+                        {{ contact_details.phone }}
+                    </li>
+                    {% endif %}
+                    {% if contact_details.address %}
+                    <li>
+                        <span class="contact-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        </span>
+                        {{ contact_details.address }}
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+            {% endif %}
+            {% if skills %}
+            <div class="section">
+                <h3>Skills</h3>
+                <ul>
+                    {% for skill in skills %}
+                    <li>
+                        {{ skill.name }}
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: {% if skill.level == 'Beginner' %}20%{% elif skill.level == 'Intermediate' %}40%{% elif skill.level == 'Proficient' %}60%{% elif skill.level == 'Expert' %}80%{% elif skill.level == 'Master' %}100%{% else %}0%{% endif %};"></div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% if certifications %}
+            <div class="section">
+                <h3>Certifications</h3>
+                <ul>
+                    {% for cert in certifications %}
+                    <li><span class="leaf-bullet"></span>{{ cert }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% if extracurriculars %}
+            <div class="section">
+                <h3>Extracurriculars</h3>
+                <ul>
+                    {% for extra in extracurriculars %}
+                    <li>
+                        <strong>{{ extra.activity }}</strong>
+                        {% if extra.role %}<br>{{ extra.role }}{% endif %}
+                        {% if extra.years %}<br>{{ extra.years }}{% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% if awards %}
+            <div class="section">
+                <h3>Awards</h3>
+                <ul>
+                    {% for award in awards %}
+                    <li><span class="leaf-bullet"></span>{{ award.name }} ({{ award.year }})</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+        <div class="right-column">
+            {% if summary %}
+            <div class="section">
+                <h3>Summary</h3>
+                <p>{{ summary }}</p>
+            </div>
+            {% endif %}
+            {% if education %}
+            <div class="section">
+                <h3>Education</h3>
+                {% for edu in education %}
+                <div style="margin-bottom: 15px;">
+                    <strong>{{ edu.school }}</strong>
+                    {% if edu.program %}, {{ edu.program }}{% endif %}
+                    {% if edu.location %}<br>{{ edu.location }}{% endif %}
+                    {% if edu.graduation_year %} | Graduated: {{ edu.graduation_year }}{% endif %}
+                    {% if edu.gpa %}<br>GPA: {{ edu.gpa }}{% endif %}
+                    {% if edu.class_rank %} | Class Rank: {{ edu.class_rank }}{% endif %}
+                    {% if edu.sat_score %} | SAT Score: {{ edu.sat_score }}{% endif %}
+                    {% if edu.act_score %} | ACT Score: {{ edu.act_score }}{% endif %}
+                    {% if edu.relevant_coursework %}
+                    <br>Relevant Coursework:
+                    <ul>
+                        {% for course in edu.relevant_coursework %}
+                        <li><span class="leaf-bullet"></span>{{ course }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% if work_experience %}
+            <div class="section">
+                <h3>Work Experience</h3>
+                {% for exp in work_experience %}
+                <div style="margin-bottom: 15px;">
+                    <strong>{{ exp.title }}</strong> at {{ exp.company }}
+                    <br>{{ exp.date }}
+                    {% if exp.responsibilities %}
+                    <ul>
+                        {% for resp in exp.responsibilities %}
+                        <li><span class="leaf-bullet"></span>{{ resp }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% if volunteer_experience %}
+            <div class="section">
+                <h3>Volunteer Experience</h3>
+                {% for vol in volunteer_experience %}
+                <div style="margin-bottom: 15px;">
+                    <strong>{{ vol.role }}</strong> at {{ vol.organization }}
+                    <br>{{ vol.date }} | {{ vol.hours }} hours
+                    {% if vol.responsibilities %}
+                    <ul>
+                        {% for resp in vol.responsibilities %}
+                        <li><span class="leaf-bullet"></span>{{ resp }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% if references %}
+            <div class="section">
+                <h3>References</h3>
+                <p>{{ references }}</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="print-only"></div>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ name }} - Resume</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 9pt;
+            line-height: 1.2;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        .page {
+            width: 210mm;
+            height: 297mm;
+            padding: 10mm;
+            position: relative;
+            overflow: hidden;
+        }
+        .content {
+            display: flex;
+            height: 100%;
+        }
+        .left-column {
+            width: 30%;
+            padding-right: 10px;
+            border-right: 2px solid #3498db;
+        }
+        .right-column {
+            width: 70%;
+            padding-left: 10px;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+            margin: 0 0 5px 0;
+        }
+        h1 {
+            font-size: 24pt;
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        h2 {
+            font-size: 14pt;
+            border-bottom: 1px solid #3498db;
+            padding-bottom: 3px;
+        }
+        h3 {
+            font-size: 11pt;
+        }
+        .profile-picture {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #3498db;
+            position: absolute;
+            top: 10mm;
+            right: 10mm;
+        }
+        .header {
+            margin-bottom: 10px;
+        }
+        .section {
+            margin-bottom: 10px;
+        }
+        .skill-bar {
+            height: 5px;
+            background-color: #ecf0f1;
+            margin-bottom: 5px;
+        }
+        .skill-level {
+            height: 100%;
+            background-color: #3498db;
+        }
+        .contact-icon {
+            width: 12px;
+            height: 12px;
+            margin-right: 5px;
+            fill: #3498db;
+        }
+        ul {
+            margin: 0;
+            padding-left: 15px;
+        }
+        .prism {
+            position: absolute;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        #prism1 {
+            top: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            transform: rotate(45deg);
+        }
+        #prism2 {
+            bottom: -30px;
+            right: -30px;
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            transform: rotate(15deg);
+        }
+        @media print {
+            body {
+                background: none;
+            }
+            .page {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="prism" id="prism1"></div>
+        <div class="prism" id="prism2"></div>
+        {% if profile_picture %}
+        <img src="{{ profile_picture }}" alt="{{ name }}" class="profile-picture">
+        {% endif %}
+        <div class="content">
+            <div class="left-column">
+                <div class="header">
+                    <h1>{{ name }}</h1>
+                    <h3>{{ title }}</h3>
+                </div>
+                {% if contact_details %}
+                <div class="section">
+                    <h2>Contact</h2>
+                    {% for key, value in contact_details.items() %}
+                    <p>
+                        <svg class="contact-icon" viewBox="0 0 20 20">
+                            <path d="M10 0C4.5 0 0 4.5 0 10s4.5 10 10 10 10-4.5 10-10S15.5 0 10 0zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8zm1-5h2v2h-2v-2zm0-8h2v6h-2V5z"/>
+                        </svg>
+                        {{ value }}
+                    </p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% if skills %}
+                <div class="section">
+                    <h2>Skills</h2>
+                    {% for skill in skills %}
+                    <h3>{{ skill.name }}</h3>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: {% if skill.level == 'Beginner' %}20%{% elif skill.level == 'Intermediate' %}40%{% elif skill.level == 'Proficient' %}60%{% elif skill.level == 'Expert' %}80%{% else %}100%{% endif %};"></div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% if certifications %}
+                <div class="section">
+                    <h2>Certifications</h2>
+                    <ul>
+                        {% for cert in certifications %}
+                        <li>{{ cert }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                {% if extracurriculars %}
+                <div class="section">
+                    <h2>Extracurriculars</h2>
+                    {% for activity in extracurriculars %}
+                    <h3>{{ activity.activity }}</h3>
+                    <p>{{ activity.role }} ({{ activity.years }})</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% if awards %}
+                <div class="section">
+                    <h2>Awards</h2>
+                    {% for award in awards %}
+                    <p>{{ award.name }} ({{ award.year }})</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            <div class="right-column">
+                {% if summary %}
+                <div class="section">
+                    <h2>Professional Summary</h2>
+                    <p>{{ summary }}</p>
+                </div>
+                {% endif %}
+                {% if work_experience %}
+                <div class="section">
+                    <h2>Work Experience</h2>
+                    {% for job in work_experience %}
+                    <h3>{{ job.title }} - {{ job.company }}</h3>
+                    <p>{{ job.date }}</p>
+                    <ul>
+                        {% for responsibility in job.responsibilities %}
+                        <li>{{ responsibility }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% if education %}
+                <div class="section">
+                    <h2>Education</h2>
+                    {% for edu in education %}
+                    <h3>{{ edu.program }} - {{ edu.school }}</h3>
+                    <p>{{ edu.location }} | Graduated: {{ edu.graduation_year }}</p>
+                    {% if edu.gpa %}
+                    <p>GPA: {{ edu.gpa }}</p>
+                    {% endif %}
+                    {% if edu.class_rank %}
+                    <p>Class Rank: {{ edu.class_rank }}</p>
+                    {% endif %}
+                    {% if edu.sat_score %}
+                    <p>SAT Score: {{ edu.sat_score }}</p>
+                    {% endif %}
+                    {% if edu.act_score %}
+                    <p>ACT Score: {{ edu.act_score }}</p>
+                    {% endif %}
+                    {% if edu.relevant_coursework %}
+                    <p>Relevant Coursework: {{ edu.relevant_coursework|join(', ') }}</p>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% if volunteer_experience %}
+                <div class="section">
+                    <h2>Volunteer Experience</h2>
+                    {% for volunteer in volunteer_experience %}
+                    <h3>{{ volunteer.role }} - {{ volunteer.organization }}</h3>
+                    <p>{{ volunteer.date }} | {{ volunteer.hours }} hours</p>
+                    <ul>
+                        {% for responsibility in volunteer.responsibilities %}
+                        <li>{{ responsibility }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% if references %}
+                <div class="section">
+                    <h2>References</h2>
+                    <p>{{ references }}</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
