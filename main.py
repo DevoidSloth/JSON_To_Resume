@@ -1,11 +1,12 @@
 import json
 import sys
 import os
+from typing import Tuple, Dict, Any
 from template_manager import TemplateManager
 from data_preprocessor import DataPreprocessor
 from template_selector import TemplateSelector
 
-def interactive_mode():
+def interactive_mode() -> Tuple[str, str, str]:
     print("Welcome to the interactive JSON to Resume converter!")
     
     # Get input JSON file
@@ -48,7 +49,7 @@ def interactive_mode():
     
     return input_file, output_file, template_name
 
-def main():
+def main() -> None:
     if len(sys.argv) == 2 and sys.argv[1] == "--interactive":
         input_file, output_file, template_name = interactive_mode()
     elif len(sys.argv) == 4:
@@ -60,32 +61,39 @@ def main():
     
     try:
         with open(input_file, 'r') as f:
-            raw_data = json.load(f)
+            raw_data: Dict[str, Any] = json.load(f)
         
         preprocessed_data = DataPreprocessor.preprocess(raw_data)
         
         template_selector = TemplateSelector()
         selected_template = template_selector.get_template(template_name)
         
+        if selected_template is None:
+            print(f"Error: Invalid template name '{template_name}'. Available templates are: {', '.join(template_selector.list_templates())}")
+            sys.exit(1)
+        
         template_manager = TemplateManager()
         html_output = template_manager.render_template(selected_template, preprocessed_data)
         
         if html_output is None:
-            print("Failed to generate resume HTML.")
+            print("Error: Failed to generate resume HTML. Please check your input data and template.")
             sys.exit(1)
         
         with open(output_file, 'w', encoding='utf-8') as f:
             f.write(html_output)
-        print(f"Resume HTML generated: {output_file}")
+        print(f"Resume HTML generated successfully: {output_file}")
     
     except FileNotFoundError as e:
-        print(f"File not found: {e.filename}")
+        print(f"Error: File not found: {e.filename}")
         sys.exit(1)
     except json.JSONDecodeError as e:
-        print(f"Invalid JSON in input file: {e}")
+        print(f"Error: Invalid JSON in input file: {e}")
+        sys.exit(1)
+    except KeyError as e:
+        print(f"Error: Missing required key in input data: {e}")
         sys.exit(1)
     except Exception as e:
-        print(f"An error occurred: {str(e)}")
+        print(f"An unexpected error occurred: {str(e)}")
         import traceback
         print(traceback.format_exc())
         sys.exit(1)
