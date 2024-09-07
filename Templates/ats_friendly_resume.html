@@ -48,7 +48,7 @@
     .section {
         margin-bottom: 15px;
     }
-    .work-item, .education-item, .skill-item, .certification-item, .volunteer-item, .award-item {
+    .work-item, .education-item, .certification-item, .volunteer-item, .award-item {
         margin-bottom: 10px;
     }
     .work-item h3, .education-item h3 {
@@ -105,7 +105,11 @@
 
     <div class="section">
         <h2>Skills</h2>
-        <p>{{ skills|join(', ') }}</p>
+        <p>
+        {% for skill in skills %}
+            {{ skill.name }}{% if skill.level %} ({{ skill.level }}){% endif %}{% if not loop.last %}, {% endif %}
+        {% endfor %}
+        </p>
     </div>
 
     {% if certifications %}
