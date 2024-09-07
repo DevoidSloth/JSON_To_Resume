@@ -2,9 +2,13 @@
 <section class="skills">
     <h2>Skills</h2>
     {% for skill in skills %}
-    <div class="skill-item">
-        <strong>{{ skill.name }}</strong>: {{ skill.level }}
-    </div>
+        <div class="skill-item">
+            {% if skill is string %}
+                {{ skill }}
+            {% else %}
+                <strong>{{ skill.name }}</strong>{% if skill.level %}: {{ skill.level }}{% endif %}
+            {% endif %}
+        </div>
     {% endfor %}
 </section>
 {% endif %}
