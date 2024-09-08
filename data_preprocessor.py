@@ -3,6 +3,10 @@ from datetime import datetime
 from num2words import num2words
 import random
 from typing import Dict, List, Any, Optional
+from colorama import Fore, Back, Style, init
+
+# Initialize colorama
+init(autoreset=True)
 
 class DataPreprocessor:
     nlp = spacy.load("en_core_web_sm")
@@ -103,7 +107,7 @@ class DataPreprocessor:
         if main_verb:
             verb_text = main_verb.text.lower()
             suggestion = DataPreprocessor.get_custom_suggestion(verb_text, responsibility)
-            return f"Suggestion: {suggestion}\nOriginal: {responsibility}"
+            return f"{Fore.YELLOW}Suggestion:{Style.RESET_ALL} {suggestion}\n{Fore.CYAN}Original:{Style.RESET_ALL} {responsibility}"
         
         return responsibility
 
@@ -138,7 +142,9 @@ class DataPreprocessor:
             else:
                 # If no numbers are present, suggest adding metrics
                 suggestion = DataPreprocessor.suggest_quantification(resp)
+                print(f"\n{Back.WHITE}{Fore.BLACK}Achievement Quantification Suggestion:{Style.RESET_ALL}")
                 print(suggestion)
+                print(f"{Fore.GREEN}{'=' * 50}{Style.RESET_ALL}\n")
                 quantified.append(resp)
         
         return quantified
