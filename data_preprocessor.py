@@ -96,6 +96,34 @@ class DataPreprocessor:
             return str(year)
 
     @staticmethod
+    def suggest_quantification(responsibility: str) -> str:
+        doc = DataPreprocessor.nlp(responsibility)
+        main_verb = DataPreprocessor.find_main_verb(doc)
+        
+        if main_verb:
+            verb_text = main_verb.text.lower()
+            suggestion = DataPreprocessor.get_custom_suggestion(verb_text, responsibility)
+            return f"Suggestion: {suggestion}\nOriginal: {responsibility}"
+        
+        return responsibility
+
+    @staticmethod
+    def get_custom_suggestion(verb: str, responsibility: str) -> str:
+        suggestions = {
+            "led": "Quantify the team's achievements. For example: 'Led a team of 5 developers, increasing productivity by 30% and delivering the project 2 weeks ahead of schedule.'",
+            "implemented": "Measure the impact of the implementation. For instance: 'Implemented agile methodologies, reducing project delivery times by 25% and improving client satisfaction scores by 40%.'",
+            "developed": "Highlight the scale and impact of your development work. Example: 'Developed RESTful APIs that increased mobile app performance by 50% and reduced server load by 30%.'",
+            "mentored": "Quantify the impact of your mentoring. For example: 'Mentored 5 junior developers, leading to a 40% increase in their productivity within 6 months.'",
+            "conducted": "Measure the outcomes of your reviews. For instance: 'Conducted code reviews that reduced bug rates by 35% and improved code quality scores by 28%.'",
+            "collaborated": "Quantify the results of the collaboration. Example: 'Collaborated with the design team to implement UI improvements, resulting in a 20% increase in user engagement and a 15% decrease in bounce rate.'",
+            "debugged": "Measure the impact of your debugging efforts. For instance: 'Debugged and resolved critical issues, reducing system downtime by 75% and saving the company an estimated $100,000 in potential revenue loss.'",
+            "participated": "Quantify your contributions in meetings. For example: 'Participated in sprint planning and retrospectives, contributing ideas that led to a 25% increase in sprint velocity.'",
+            "contributed": "Measure the impact of your contributions. For instance: 'Contributed to open-source projects, with pull requests that were merged into 5 major repositories and increased the projects' performance by an average of 15%.'",
+        }
+        
+        return suggestions.get(verb, f"Consider adding measurable outcomes for '{verb}'. Include specific metrics such as percentage improvements, time saved, or quantifiable results achieved.")
+
+    @staticmethod
     def quantify_achievements(responsibilities: List[str]) -> List[str]:
         quantified = []
         for resp in responsibilities:
@@ -105,10 +133,12 @@ class DataPreprocessor:
             numbers = [token.text for token in doc if token.like_num]
             
             if numbers:
-                # If numbers are present, use them in the quantification
+                # If numbers are present, keep the original responsibility
                 quantified.append(resp)
             else:
-                # If no numbers are present, keep the original responsibility without modification
+                # If no numbers are present, suggest adding metrics
+                suggestion = DataPreprocessor.suggest_quantification(resp)
+                print(suggestion)
                 quantified.append(resp)
         
         return quantified
